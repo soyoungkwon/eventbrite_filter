@@ -3,15 +3,13 @@ import pandas as pd
 import os
 import decimal
 
-# page = 1
-
-df_filter
-df_filter.sort_values(['Max'],ascending=False)
+path_curr = os.getcwd()
+max_pages = 50
+min_price = 300
 # main function
 def main():
     df_all = load_all_files()
     df_filter = price_filter(df_all)
-    # df_filter = price_max_extract(df_all)
     df_filter.to_csv(path_curr +'/' + 'eventlist_filtered_300euro.csv', encoding = 'utf-8', index=False)
 
 # load all the csv files
@@ -27,6 +25,7 @@ def load_all_files():
 # event with filtered price
 def price_filter(df):
     df_filter_orderbypage = df[df['Max']>min_price]
+    # Price reorder to High--> Low
     df_filter = df_filter_orderbypage.sort_values(['Max'],ascending=False)
 
     return df_filter
